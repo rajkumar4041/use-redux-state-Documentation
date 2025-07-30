@@ -1,6 +1,12 @@
 import './App.css';
 
-import GlobalReduxProvider, { useReduxState } from 'use-redux-state';
+import GlobalReduxProvider, {
+  getSliceForKey,
+  useMultipleGlobalStates,
+  useReduxState,
+  useReduxStateSelector,
+  useReduxStateValue,
+} from 'use-redux-state';
 
 function App() {
   return (
@@ -13,7 +19,7 @@ function App() {
 export default App;
 
 function A() {
-  const [count, setCount, { reset }] = useReduxState('counter', 3);
+  const [count, setCount, { reset }] = useReduxState<number>('counter', 0);
   const [student, setStudent, { update }] = useReduxState('student', { name: '', age: 0 });
 
   return (
@@ -28,20 +34,51 @@ function A() {
         <button onClick={() => update({ age: 30 })}>partially Student Age </button>
         <button onClick={() => reset()}>reset Counter</button>
       </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </>
   );
 }
 
 const Counter = () => {
-  const [count] = useReduxState<number>('counter', 0);
+  const [count] = useReduxState<number>('counter');
+  const [student] = useReduxState<{ name: string; age: number }>('student', { name: '', age: 0 });
+  console.log('val here check', 'getSliceForKey', getSliceForKey('counter'));
+  const counter = useReduxStateSelector<number, any>('counter', (state) => state);
+  console.log('b here', counter);
+
+  const multipleStates = useMultipleGlobalStates(['counter', 'student']);
 
   return (
     <div>
       <h2>Global Counter Component</h2>
-      <p>Current Count: {count}</p>
+      <p>parent Count: {count}</p>
+      <p>parent by useReduxStateSelector Count: {counter}</p>
+      Multiple States
+      {JSON.stringify(multipleStates)}
+      <div style={{ display: 'flex', gap: 1 }}> student Name : {student.name}</div>
+      <div style={{ display: 'flex', gap: 1 }}> student Age : {student.age}</div>
       {/* <button onClick={() => setCount(count + 1)}>Increment</button>
       <button onClick={() => setCount(count - 1)}>Decrement</button> */}
+      <div style={{ marginTop: 20 }}>
+        <ReduxValueStateExample />
+      </div>
+    </div>
+  );
+};
+
+const ReduxValueStateExample = () => {
+  const una = useReduxStateValue<number>('value');
+  const count = useReduxStateValue<number>('counter');
+  const student = useReduxStateValue<{ name: string; age: number }>('student');
+
+  console.log('ReduxValueStateExample', una, 'count', count, 'student', student);
+
+  return (
+    <div>
+      <h2>Redux Value State value Example</h2>"{' '}
+      <div style={{ display: 'flex', gap: 1 }}> not in registory :{una}</div>
+      <div style={{ display: 'flex', gap: 1 }}> counter : {count}</div>
+      <div style={{ display: 'flex', gap: 1 }}> student : {student.name}</div>
+      <div style={{ display: 'flex', gap: 1 }}> student Age : {student.age}</div>
     </div>
   );
 };
