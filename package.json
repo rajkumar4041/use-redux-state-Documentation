@@ -10,24 +10,24 @@
     "preview": "vite preview"
   },
   "author": "Rajkumar Rathod",
-  "description": "A comprehensive showcase of use-redux-state package capabilities",
+  "description": "A comprehensive showcase of redux-toolkit-state package capabilities",
   "keywords": [
     "react",
     "redux",
     "state",
     "management",
-    "use-redux-state"
+    "redux-toolkit-state"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/rajkumar4041/use-redux-state",
+  "homepage": "https://github.com/rajkumar4041/redux-toolkit-state",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rajkumar4041/use-redux-state"
+    "url": "https://github.com/rajkumar4041/redux-toolkit-state"
   },
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "use-redux-state": "file:use-redux-state-1.0.0.tgz"
+    "redux-toolkit-state": "^1.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

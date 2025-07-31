@@ -1,4 +1,4 @@
-import { useReduxState, useReduxStateSelector } from 'use-redux-state';
+import { useReduxState, useReduxStateSelector } from 'redux-toolkit-state';
 
 interface Product {
   id: number;
@@ -18,20 +18,22 @@ const SelectorExample = () => {
   ]);
 
   // Selectors for derived state
-  const totalValue = useReduxStateSelector<number>('products', (products) =>
-    products.reduce((sum, product) => sum + product.price, 0)
+  const totalValue = useReduxStateSelector<number, any>('products', (products: any) =>
+    products?.reduce((sum: any, product: any) => sum + product.price, 0)
   );
 
-  const electronicsProducts = useReduxStateSelector<Product[]>('products', (products) =>
-    products.filter(product => product.category === 'Electronics')
+  const electronicsProducts = useReduxStateSelector<Product[], Product[]>('products', (products) =>
+    products.filter((product) => product.category === 'Electronics')
   );
 
-  const inStockProducts = useReduxStateSelector<Product[]>('products', (products) =>
-    products.filter(product => product.inStock)
+  const inStockProducts = useReduxStateSelector<Product[], Product[]>('products', (products) =>
+    products.filter((product) => product.inStock)
   );
 
-  const averagePrice = useReduxStateSelector<number>('products', (products) =>
-    products.length > 0 ? products.reduce((sum, product) => sum + product.price, 0) / products.length : 0
+  const averagePrice = useReduxStateSelector<number, any>('products', (products: any) =>
+    products.length > 0
+      ? products.reduce((sum: any, product: any) => sum + product.price, 0) / products.length
+      : 0
   );
 
   const addProduct = () => {
@@ -46,18 +48,21 @@ const SelectorExample = () => {
   };
 
   const toggleStock = (id: number) => {
-    setProducts(products.map(product =>
-      product.id === id ? { ...product, inStock: !product.inStock } : product
-    ));
+    setProducts(
+      products.map((product) =>
+        product.id === id ? { ...product, inStock: !product.inStock } : product
+      )
+    );
   };
 
   return (
     <div className="example-container">
       <h2>State Selectors</h2>
       <p className="description">
-        Using selectors to compute derived state from your global state. Selectors are memoized and only recalculate when dependencies change.
+        Using selectors to compute derived state from your global state. Selectors are memoized and
+        only recalculate when dependencies change.
       </p>
-      
+
       <div className="demo-section">
         <div className="stats-grid">
           <div className="stat-card">
@@ -78,20 +83,27 @@ const SelectorExample = () => {
           </div>
           <div className="stat-card">
             <h4>Average Price</h4>
-            <p>${averagePrice.toFixed(2)}</p>
+            <p>${averagePrice}</p>
           </div>
         </div>
 
         <div className="products-section">
           <h3>Products</h3>
-          <button onClick={addProduct} className="add-button">Add Random Product</button>
-          
+          <button onClick={addProduct} className="add-button">
+            Add Random Product
+          </button>
+
           <div className="products-list">
-            {products.map(product => (
-              <div key={product.id} className={`product-item ${!product.inStock ? 'out-of-stock' : ''}`}>
+            {products.map((product) => (
+              <div
+                key={product.id}
+                className={`product-item ${!product.inStock ? 'out-of-stock' : ''}`}
+              >
                 <div className="product-info">
                   <h4>{product.name}</h4>
-                  <p>${product.price} - {product.category}</p>
+                  <p>
+                    ${product.price} - {product.category}
+                  </p>
                   <span className={`stock-status ${product.inStock ? 'in-stock' : 'out-of-stock'}`}>
                     {product.inStock ? 'In Stock' : 'Out of Stock'}
                   </span>
@@ -107,24 +119,26 @@ const SelectorExample = () => {
 
       <div className="code-section">
         <h3>Code</h3>
-        <pre><code>{`// Selectors for derived state
-const totalValue = useReduxStateSelector<number>('products', (products) =>
+        <pre>
+          <code>{`// Selectors for derived state
+const totalValue = useReduxStateSelector<number, Product[]>('products', (products) =>
   products.reduce((sum, product) => sum + product.price, 0)
 );
 
-const electronicsProducts = useReduxStateSelector<Product[]>('products', (products) =>
+const electronicsProducts = useReduxStateSelector<Product[], Product[]>('products', (products) =>
   products.filter(product => product.category === 'Electronics')
 );
 
-const inStockProducts = useReduxStateSelector<Product[]>('products', (products) =>
+const inStockProducts = useReduxStateSelector<Product[], Product[]>('products', (products) =>
   products.filter(product => product.inStock)
 );
 
-const averagePrice = useReduxStateSelector<number>('products', (products) =>
+const averagePrice = useReduxStateSelector<number, Product[]>('products', (products) =>
   products.length > 0 
     ? products.reduce((sum, product) => sum + product.price, 0) / products.length 
     : 0
-);`}</code></pre>
+);`}</code>
+        </pre>
       </div>
 
       <div className="features">
@@ -141,4 +155,4 @@ const averagePrice = useReduxStateSelector<number>('products', (products) =>
   );
 };
 
-export default SelectorExample; 
+export default SelectorExample;

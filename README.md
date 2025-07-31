@@ -1,6 +1,6 @@
-# use-redux-state Examples
+# redux-toolkit-state Examples
 
-A comprehensive showcase of the `use-redux-state` package capabilities, demonstrating various use cases and patterns for global state management in React applications.
+A comprehensive showcase of the `redux-toolkit-state` package capabilities, demonstrating various use cases and patterns for global state management in React applications.
 
 ## 🚀 Features
 
@@ -195,7 +195,7 @@ These examples cover common real-world scenarios:
 
 ## 🔗 Related Resources
 
-- [use-redux-state Documentation](https://github.com/rajkumar4041/use-redux-state)
+- [redux-toolkit-state Documentation](https://github.com/rajkumar4041/redux-toolkit-state)
 - [React Documentation](https://react.dev/)
 - [TypeScript Documentation](https://www.typescriptlang.org/)
 
@@ -211,4 +211,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 **Happy coding! 🎉**
 
-This examples project demonstrates the power and flexibility of the `use-redux-state` package for managing global state in React applications. Each example is designed to be both educational and practical, showing real-world patterns you can apply to your own projects.
+This examples project demonstrates the power and flexibility of the `redux-toolkit-state` package for managing global state in React applications. Each example is designed to be both educational and practical, showing real-world patterns you can apply to your own projects.

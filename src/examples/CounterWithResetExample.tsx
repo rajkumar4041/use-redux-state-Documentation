@@ -1,4 +1,4 @@
-import { useReduxState } from 'use-redux-state';
+import { useReduxState } from 'redux-toolkit-state';
 
 const CounterWithResetExample = () => {
   const [count, setCount, { reset }] = useReduxState<number>('reset-counter', 0);

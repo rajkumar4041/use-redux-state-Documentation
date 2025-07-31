@@ -1,4 +1,4 @@
-import { useReduxState } from 'use-redux-state';
+import { useReduxState } from 'redux-toolkit-state';
 
 interface User {
   id: number;

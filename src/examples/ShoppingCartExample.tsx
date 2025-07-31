@@ -1,4 +1,4 @@
-import { useReduxState, useReduxStateSelector } from 'use-redux-state';
+import { useReduxState, useReduxStateSelector } from 'redux-toolkit-state';
 
 interface Product {
   id: number;
@@ -15,7 +15,7 @@ interface CartItem {
 }
 
 const ShoppingCartExample = () => {
-  const [products, setProducts] = useReduxState<Product[]>('cart-products', [
+  const [products] = useReduxState<Product[]>('cart-products', [
     { id: 1, name: 'Laptop', price: 999, image: '💻', category: 'Electronics', inStock: true },
     { id: 2, name: 'Mouse', price: 25, image: '🖱️', category: 'Electronics', inStock: true },
     { id: 3, name: 'Keyboard', price: 75, image: '⌨️', category: 'Electronics', inStock: true },
@@ -28,12 +28,12 @@ const ShoppingCartExample = () => {
   const [selectedCategory, setSelectedCategory] = useReduxState<string>('selected-category', 'all');
 
   // Selectors for derived state
-  const filteredProducts = useReduxStateSelector<Product[]>('cart-products', (products) => {
+  const filteredProducts = useReduxStateSelector<Product[], any>('cart-products', (products) => {
     if (selectedCategory === 'all') return products;
     return products.filter((product) => product.category === selectedCategory);
   });
 
-  const cartItems = useReduxStateSelector<Array<CartItem & { product: Product }>>(
+  const cartItems = useReduxStateSelector<Array<CartItem & { product: Product }>, any>(
     'shopping-cart',
     (cart) => {
       return cart
@@ -45,15 +45,15 @@ const ShoppingCartExample = () => {
     }
   );
 
-  const cartTotal = useReduxStateSelector<number>('shopping-cart', (cart) => {
-    return cart.reduce((total, item) => {
+  const cartTotal = useReduxStateSelector<number, any>('shopping-cart', (cart: any) => {
+    return cart.reduce((total: any, item: any) => {
       const product = products.find((p) => p.id === item.productId);
       return total + (product ? product.price * item.quantity : 0);
     }, 0);
   });
 
-  const cartItemCount = useReduxStateSelector<number>('shopping-cart', (cart) => {
-    return cart.reduce((count, item) => count + item.quantity, 0);
+  const cartItemCount = useReduxStateSelector<number, any>('shopping-cart', (cart: any) => {
+    return cart.reduce((count: any, item: any) => count + item.quantity, 0);
   });
 
   const addToCart = (productId: number) => {
@@ -129,7 +129,7 @@ const ShoppingCartExample = () => {
             </div>
 
             <div className="products-grid">
-              {filteredProducts.map((product) => (
+              {filteredProducts.map((product: any) => (
                 <div
                   key={product.id}
                   className={`product-card ${!product.inStock ? 'out-of-stock' : ''}`}
@@ -159,7 +159,7 @@ const ShoppingCartExample = () => {
               <p className="empty-cart">Your cart is empty</p>
             ) : (
               <div className="cart-items">
-                {cartItems.map((item) => (
+                {cartItems.map((item: any) => (
                   <div key={item.productId} className="cart-item">
                     <div className="cart-item-info">
                       <span className="cart-item-image">{item.product.image}</span>

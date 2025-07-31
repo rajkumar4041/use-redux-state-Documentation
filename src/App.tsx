@@ -1,7 +1,7 @@
 import './App.css';
 
 import { useState } from 'react';
-import GlobalReduxProvider from 'use-redux-state';
+import GlobalReduxProvider from 'redux-toolkit-state';
 // Import all example components
 import BasicUsageExample from './examples/BasicUsageExample';
 import ComplexStateExample from './examples/ComplexStateExample';
@@ -18,7 +18,7 @@ import ProfileAvatars from './Profiles';
 
 /**
  * @author Rajkumar Rathod
- * @description A comprehensive showcase of use-redux-state package capabilities
+ * @description A comprehensive showcase of redux-toolkit-state package capabilities
  */
 function App() {
   const [activeExample, setActiveExample] = useState('basic');
@@ -44,8 +44,8 @@ function App() {
       <div className="app">
         <header className="app-header">
           <div>
-            <h1>use-redux-state Examples</h1>
-            <p>A comprehensive showcase of use-redux-state package capabilities</p>
+            <h1>redux-toolkit-state Examples</h1>
+            <p>A comprehensive showcase of redux-toolkit-state package capabilities</p>
           </div>
           <ProfileAvatars />
         </header>

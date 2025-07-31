@@ -1,4 +1,4 @@
-import { useReduxState, useReduxStateValue } from 'use-redux-state';
+import { useReduxState, useReduxStateValue } from 'redux-toolkit-state';
 
 interface Theme {
   mode: 'light' | 'dark';
@@ -164,7 +164,7 @@ const ThemeAwareComponent = () => {
         </ul>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .theme-toggle {
           background-color: ${theme.primaryColor};
           color: white;

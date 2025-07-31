@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useReduxState, useReduxStateSelector } from 'use-redux-state';
+import { useReduxState, useReduxStateSelector } from 'redux-toolkit-state';
 
 interface FormData {
   firstName: string;
@@ -41,7 +40,7 @@ const FormStateExample = () => {
   const [isSubmitted, setIsSubmitted] = useReduxState<boolean>('form-submitted', false);
 
   // Selectors for derived state
-  const isFormValid = useReduxStateSelector<boolean>('form-data', (formData) => {
+  const isFormValid = useReduxStateSelector<boolean, FormData>('form-data', (formData: any) => {
     return (
       formData.firstName.length > 0 &&
       formData.lastName.length > 0 &&
@@ -52,7 +51,7 @@ const FormStateExample = () => {
     );
   });
 
-  const formProgress = useReduxStateSelector<number>('form-data', (formData) => {
+  const formProgress = useReduxStateSelector<number, any>('form-data', (formData: any) => {
     const fields = [
       'firstName',
       'lastName',
@@ -338,7 +337,7 @@ const FormStateExample = () => {
   });
 
   // Derived state with selectors
-  const isFormValid = useReduxStateSelector<boolean>('form-data', (formData) => {
+  const isFormValid = useReduxStateSelector<boolean, FormData>('form-data', (formData) => {
     return formData.firstName.length > 0 &&
            formData.lastName.length > 0 &&
            formData.email.includes('@') &&
@@ -347,7 +346,7 @@ const FormStateExample = () => {
            formData.terms;
   });
 
-  const formProgress = useReduxStateSelector<number>('form-data', (formData) => {
+  const formProgress = useReduxStateSelector<number, FormData>('form-data', (formData) => {
     const fields = ['firstName', 'lastName', 'email', 'phone', 'age', 'gender', 'interests', 'terms'];
     const completedFields = fields.filter(field => {
       const value = formData[field as keyof FormData];

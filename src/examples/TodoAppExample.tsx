@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useReduxState, useReduxStateSelector } from 'use-redux-state';
+import { useReduxState, useReduxStateSelector } from 'redux-toolkit-state';
 
 interface Todo {
   id: number;
@@ -16,7 +16,7 @@ const TodoAppExample = () => {
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
 
   // Selectors for derived state
-  const filteredTodos = useReduxStateSelector<Todo[]>('todos', (todos) => {
+  const filteredTodos = useReduxStateSelector<Todo[], any>('todos', (todos) => {
     switch (filter) {
       case 'active':
         return todos.filter((todo) => !todo.completed);
@@ -27,12 +27,12 @@ const TodoAppExample = () => {
     }
   });
 
-  const stats = useReduxStateSelector<{ total: number; completed: number; active: number }>(
+  const stats = useReduxStateSelector<{ total: number; completed: number; active: number }, any>(
     'todos',
-    (todos) => ({
+    (todos: any) => ({
       total: todos.length,
-      completed: todos.filter((todo) => todo.completed).length,
-      active: todos.filter((todo) => !todo.completed).length,
+      completed: todos.filter((todo:any) => todo.completed).length,
+      active: todos.filter((todo:any) => !todo.completed).length,
     })
   );
 
@@ -127,7 +127,7 @@ const TodoAppExample = () => {
         </div>
 
         <div className="todo-list">
-          {filteredTodos.map((todo) => (
+          {filteredTodos.map((todo:any) => (
             <TodoItem
               key={todo.id}
               todo={todo}

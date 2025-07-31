@@ -1,4 +1,4 @@
-import { useReduxState } from 'use-redux-state';
+import { useReduxState } from 'redux-toolkit-state';
 
 const BasicUsageExample = () => {
   const [count, setCount] = useReduxState<number>('basic-counter', 0);
@@ -23,7 +23,7 @@ const BasicUsageExample = () => {
       <div className="code-section">
         <h3>Code</h3>
         <pre>
-          <code>{`import { useReduxState } from 'use-redux-state';
+          <code>{`import { useReduxState } from 'redux-toolkit-state';
 
 const BasicUsageExample = () => {
   const [count, setCount] = useReduxState<number>('basic-counter', 0);

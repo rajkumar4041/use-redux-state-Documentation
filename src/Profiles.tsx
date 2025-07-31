@@ -1,6 +1,6 @@
 const ProfileAvatars = () => {
   const githubUrl = 'https://github.com/rajkumar4041';
-  const npmUrl = 'https://github.com/rajkumar4041/use-redux-state';
+  const npmUrl = 'https://github.com/rajkumar4041/redux-toolkit-state';
 
   const handleGitHubClick = () => {
     window.open(githubUrl, '_blank', 'noopener,noreferrer');
