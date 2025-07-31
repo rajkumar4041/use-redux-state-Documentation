@@ -1,84 +1,79 @@
 import './App.css';
 
-import GlobalReduxProvider, {
-  getSliceForKey,
-  useMultipleGlobalStates,
-  useReduxState,
-  useReduxStateSelector,
-  useReduxStateValue,
-} from 'use-redux-state';
+import { useState } from 'react';
+import GlobalReduxProvider from 'use-redux-state';
+// Import all example components
+import BasicUsageExample from './examples/BasicUsageExample';
+import ComplexStateExample from './examples/ComplexStateExample';
+import CounterWithResetExample from './examples/CounterWithResetExample';
+import FormStateExample from './examples/FormStateExample';
+import MultipleStatesExample from './examples/MultipleStatesExample';
+import SelectorExample from './examples/SelectorExample';
+import ShoppingCartExample from './examples/ShoppingCartExample';
+import ThemeToggleExample from './examples/ThemeToggleExample';
+import TodoAppExample from './examples/TodoAppExample';
+import ProfileAvatars from './Profiles';
 
+// import ValueOnlyExample from './examples/ValueOnlyExample';
+
+/**
+ * @author Rajkumar Rathod
+ * @description A comprehensive showcase of use-redux-state package capabilities
+ */
 function App() {
+  const [activeExample, setActiveExample] = useState('basic');
+
+  const examples = [
+    { id: 'basic', name: 'Basic Usage', component: BasicUsageExample },
+    { id: 'complex', name: 'Complex State', component: ComplexStateExample },
+    { id: 'selector', name: 'State Selectors', component: SelectorExample },
+    { id: 'multiple', name: 'Multiple States', component: MultipleStatesExample },
+    // { id: 'value', name: 'Value Only', component: ValueOnlyExample },
+    { id: 'todo', name: 'Todo App', component: TodoAppExample },
+    { id: 'cart', name: 'Shopping Cart', component: ShoppingCartExample },
+    { id: 'theme', name: 'Theme Toggle', component: ThemeToggleExample },
+    { id: 'form', name: 'Form State', component: FormStateExample },
+    { id: 'counter-reset', name: 'Counter with Reset', component: CounterWithResetExample },
+  ];
+
+  const ActiveComponent =
+    examples.find((ex) => ex.id === activeExample)?.component || BasicUsageExample;
+
   return (
     <GlobalReduxProvider>
-      <A />
+      <div className="app">
+        <header className="app-header">
+          <div>
+            <h1>use-redux-state Examples</h1>
+            <p>A comprehensive showcase of use-redux-state package capabilities</p>
+          </div>
+          <ProfileAvatars />
+        </header>
+
+        <div className="app-container">
+          <nav className="sidebar">
+            <h3>Examples</h3>
+            <ul>
+              {examples.map((example) => (
+                <li key={example.id}>
+                  <button
+                    className={activeExample === example.id ? 'active' : ''}
+                    onClick={() => setActiveExample(example.id)}
+                  >
+                    {example.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <main className="main-content">
+            <ActiveComponent />
+          </main>
+        </div>
+      </div>
     </GlobalReduxProvider>
   );
 }
 
 export default App;
-
-function A() {
-  const [count, setCount, { reset }] = useReduxState<number>('counter', 0);
-  const [student, setStudent, { update }] = useReduxState('student', { name: '', age: 0 });
-
-  return (
-    <>
-      <h1>Redux State Examples</h1>
-      <div style={{ display: 'flex', gap: 1 }}> student Name : {student.name}</div>
-      <div style={{ display: 'flex', gap: 1 }}> student Age : {student.age}</div>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <Counter />
-        <button onClick={() => setStudent({ name: 'John', age: 25 })}>Set Student</button>
-        <button onClick={() => update({ age: 30 })}>partially Student Age </button>
-        <button onClick={() => reset()}>reset Counter</button>
-      </div>
-    </>
-  );
-}
-
-const Counter = () => {
-  const [count] = useReduxState<number>('counter');
-  const [student] = useReduxState<{ name: string; age: number }>('student', { name: '', age: 0 });
-  console.log('val here check', 'getSliceForKey', getSliceForKey('counter'));
-  const counter = useReduxStateSelector<number, any>('counter', (state) => state);
-  console.log('b here', counter);
-
-  const multipleStates = useMultipleGlobalStates(['counter', 'student']);
-
-  return (
-    <div>
-      <h2>Global Counter Component</h2>
-      <p>parent Count: {count}</p>
-      <p>parent by useReduxStateSelector Count: {counter}</p>
-      Multiple States
-      {JSON.stringify(multipleStates)}
-      <div style={{ display: 'flex', gap: 1 }}> student Name : {student.name}</div>
-      <div style={{ display: 'flex', gap: 1 }}> student Age : {student.age}</div>
-      {/* <button onClick={() => setCount(count + 1)}>Increment</button>
-      <button onClick={() => setCount(count - 1)}>Decrement</button> */}
-      <div style={{ marginTop: 20 }}>
-        <ReduxValueStateExample />
-      </div>
-    </div>
-  );
-};
-
-const ReduxValueStateExample = () => {
-  const una = useReduxStateValue<number>('value');
-  const count = useReduxStateValue<number>('counter');
-  const student = useReduxStateValue<{ name: string; age: number }>('student');
-
-  console.log('ReduxValueStateExample', una, 'count', count, 'student', student);
-
-  return (
-    <div>
-      <h2>Redux Value State value Example</h2>"{' '}
-      <div style={{ display: 'flex', gap: 1 }}> not in registory :{una}</div>
-      <div style={{ display: 'flex', gap: 1 }}> counter : {count}</div>
-      <div style={{ display: 'flex', gap: 1 }}> student : {student.name}</div>
-      <div style={{ display: 'flex', gap: 1 }}> student Age : {student.age}</div>
-    </div>
-  );
-};

@@ -9,6 +9,21 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "author": "Rajkumar Rathod",
+  "description": "A comprehensive showcase of use-redux-state package capabilities",
+  "keywords": [
+    "react",
+    "redux",
+    "state",
+    "management",
+    "use-redux-state"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/rajkumar4041/use-redux-state",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rajkumar4041/use-redux-state"
+  },
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
