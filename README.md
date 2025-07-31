@@ -195,7 +195,7 @@ These examples cover common real-world scenarios:
 
 ## 🔗 Related Resources
 
-- [use-redux-state Documentation](https://github.com/rajkumar4140/use-redux-state)
+- [use-redux-state Documentation](https://github.com/rajkumar4041/use-redux-state)
 - [React Documentation](https://react.dev/)
 - [TypeScript Documentation](https://www.typescriptlang.org/)
 
