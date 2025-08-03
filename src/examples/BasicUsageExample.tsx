@@ -1,11 +1,26 @@
 import { useReduxState } from 'redux-toolkit-state';
+import CodeBlock from '../components/CodeBlock';
+
+const BasicUsageExample = () => {
+  const [count, setCount] = useReduxState<number>('basic-counter', 0);
+
+  const codeExample = `import { useReduxState } from 'redux-toolkit-state';
 
 const BasicUsageExample = () => {
   const [count, setCount] = useReduxState<number>('basic-counter', 0);
 
   return (
+    <div>
+      <h3>Counter: {count}</h3>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <button onClick={() => setCount(0)}>Reset</button>
+    </div>
+  );
+};`;
+
+  return (
     <div className="example-container">
-      <h2>Basic Usage</h2>
       <p className="description">
         The most basic usage of useReduxState. This example shows how to create and manage a simple
         counter state.
@@ -22,22 +37,7 @@ const BasicUsageExample = () => {
 
       <div className="code-section">
         <h3>Code</h3>
-        <pre>
-          <code>{`import { useReduxState } from 'redux-toolkit-state';
-
-const BasicUsageExample = () => {
-  const [count, setCount] = useReduxState<number>('basic-counter', 0);
-
-  return (
-    <div>
-      <h3>Counter: {count}</h3>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <button onClick={() => setCount(count - 1)}>Decrement</button>
-      <button onClick={() => setCount(0)}>Reset</button>
-    </div>
-  );
-};`}</code>
-        </pre>
+        <CodeBlock code={codeExample} language="typescript" title="BasicUsageExample.tsx" />
       </div>
 
       <div className="features">

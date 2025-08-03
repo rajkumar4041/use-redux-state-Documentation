@@ -89,7 +89,7 @@ const SelectorExample = () => {
 
         <div className="products-section">
           <h3>Products</h3>
-          <button onClick={addProduct} className="add-button">
+          <button onClick={addProduct} className="button-custom">
             Add Random Product
           </button>
 
@@ -108,7 +108,7 @@ const SelectorExample = () => {
                     {product.inStock ? 'In Stock' : 'Out of Stock'}
                   </span>
                 </div>
-                <button onClick={() => toggleStock(product.id)}>
+                <button onClick={() => toggleStock(product.id)} className="button-custom">
                   {product.inStock ? 'Mark Out of Stock' : 'Mark In Stock'}
                 </button>
               </div>

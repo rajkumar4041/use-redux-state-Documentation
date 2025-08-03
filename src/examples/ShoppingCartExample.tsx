@@ -105,10 +105,10 @@ const ShoppingCartExample = () => {
             <span>Total: ${cartTotal.toFixed(2)}</span>
           </div>
           <div className="cart-actions">
-            <button onClick={clearCart} disabled={cart.length === 0}>
+            <button className="button-custom" onClick={clearCart} disabled={cart.length === 0}>
               Clear Cart
             </button>
-            <button onClick={checkout} disabled={cart.length === 0}>
+            <button className="button-custom" onClick={checkout} disabled={cart.length === 0}>
               Checkout
             </button>
           </div>
@@ -145,7 +145,7 @@ const ShoppingCartExample = () => {
                       {product.inStock ? 'In Stock' : 'Out of Stock'}
                     </span>
                   </div>
-                  <button onClick={() => addToCart(product.id)} disabled={!product.inStock}>
+                  <button className="button-custom" onClick={() => addToCart(product.id)} disabled={!product.inStock}>
                     Add to Cart
                   </button>
                 </div>
@@ -170,15 +170,15 @@ const ShoppingCartExample = () => {
                     </div>
                     <div className="cart-item-actions">
                       <div className="quantity-controls">
-                        <button onClick={() => updateQuantity(item.productId, item.quantity - 1)}>
+                        <button className="button-custom" onClick={() => updateQuantity(item.productId, item.quantity - 1)}>
                           -
                         </button>
                         <span>{item.quantity}</span>
-                        <button onClick={() => updateQuantity(item.productId, item.quantity + 1)}>
+                        <button className="button-custom" onClick={() => updateQuantity(item.productId, item.quantity + 1)}>
                           +
                         </button>
                       </div>
-                      <button onClick={() => removeFromCart(item.productId)}>Remove</button>
+                      <button className="button-custom" onClick={() => removeFromCart(item.productId)}>Remove</button>
                     </div>
                   </div>
                 ))}

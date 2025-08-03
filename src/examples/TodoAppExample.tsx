@@ -31,8 +31,8 @@ const TodoAppExample = () => {
     'todos',
     (todos: any) => ({
       total: todos.length,
-      completed: todos.filter((todo:any) => todo.completed).length,
-      active: todos.filter((todo:any) => !todo.completed).length,
+      completed: todos.filter((todo: any) => todo.completed).length,
+      active: todos.filter((todo: any) => !todo.completed).length,
     })
   );
 
@@ -122,12 +122,14 @@ const TodoAppExample = () => {
             >
               Completed
             </button>
-            <button onClick={clearCompleted}>Clear Completed</button>
+            <button className="button-custom" onClick={clearCompleted}>
+              Clear Completed
+            </button>
           </div>
         </div>
 
         <div className="todo-list">
-          {filteredTodos.map((todo:any) => (
+          {filteredTodos.map((todo: any) => (
             <TodoItem
               key={todo.id}
               todo={todo}

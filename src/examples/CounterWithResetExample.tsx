@@ -61,26 +61,39 @@ const CounterWithResetExample = () => {
           </div>
         </div>
 
-        <div className="counter-controls">
+        <div
+          className="counter-controls"
+          style={{
+            display: 'flex',
+            gap: '0.5rem',
+            flexDirection: 'column',
+            marginTop: '1rem',
+            marginBottom: '1rem',
+          }}
+        >
           <div className="button-group">
-            <button onClick={decrement}>-{step}</button>
-            <button onClick={increment}>+{step}</button>
+            <button className="button-custom" onClick={decrement}>
+              -{step}
+            </button>
+            <button className="button-custom" onClick={increment}>
+              +{step}
+            </button>
           </div>
 
-          <div className="reset-controls">
-            <button onClick={resetCounter} className="reset-btn">
+          <div className="reset-controls" style={{ display: 'flex', gap: '1rem' }}>
+            <button className="button-custom" onClick={resetCounter}>
               Reset to 0
             </button>
-            <button onClick={() => resetToValue(100)} className="reset-btn">
+            <button className="button-custom" onClick={() => resetToValue(100)}>
               Reset to 100
             </button>
-            <button onClick={() => resetToValue(-50)} className="reset-btn">
+            <button className="button-custom" onClick={() => resetToValue(-50)}>
               Reset to -50
             </button>
           </div>
 
           <div className="history-controls">
-            <button onClick={undo} disabled={history.length <= 1} className="undo-btn">
+            <button className="button-custom" onClick={undo} disabled={history.length <= 1}>
               Undo
             </button>
             <span className="history-count">History: {history.length} steps</span>

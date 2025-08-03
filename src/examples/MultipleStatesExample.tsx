@@ -63,7 +63,7 @@ const MultipleStatesExample = () => {
             <p>
               <strong>Role:</strong> {user.role}
             </p>
-            <button onClick={updateUser}>Update User</button>
+            <button onClick={updateUser} className="button-custom">Update User</button>
           </div>
 
           <div className="state-card">
@@ -74,7 +74,7 @@ const MultipleStatesExample = () => {
             <p>
               <strong>Language:</strong> {settings.language}
             </p>
-            <button onClick={toggleTheme}>Toggle Theme</button>
+            <button onClick={toggleTheme} className="button-custom">Toggle Theme</button>
           </div>
 
           <div className="state-card">
@@ -85,7 +85,7 @@ const MultipleStatesExample = () => {
             <p>
               <strong>Enabled:</strong> {notifications.enabled ? 'Yes' : 'No'}
             </p>
-            <button onClick={addNotification}>Add Notification</button>
+            <button onClick={addNotification} className="button-custom">Add Notification</button>
           </div>
 
           <div className="state-card">
@@ -96,7 +96,7 @@ const MultipleStatesExample = () => {
             <p>
               <strong>Total:</strong> ${cart.total}
             </p>
-            <button onClick={addToCart}>Add Item</button>
+            <button onClick={addToCart} className="button-custom">Add Item</button>
           </div>
         </div>
 

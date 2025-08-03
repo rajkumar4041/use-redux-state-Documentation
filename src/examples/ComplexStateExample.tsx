@@ -1,150 +1,149 @@
 import { useReduxState } from 'redux-toolkit-state';
+import CodeBlock from '../components/CodeBlock';
 
 interface User {
   id: number;
   name: string;
   email: string;
-  age: number;
-  preferences: {
-    theme: 'light' | 'dark';
-    notifications: boolean;
-  };
+  isActive: boolean;
 }
 
 const ComplexStateExample = () => {
-  const [user, setUser, { update }] = useReduxState<User>('complex-user', {
+  const [user, setUser] = useReduxState<User>('complex-user', {
     id: 1,
     name: 'John Doe',
     email: 'john@example.com',
-    age: 25,
-    preferences: {
-      theme: 'light',
-      notifications: true,
-    },
+    isActive: true,
   });
 
-  const handleUpdateName = () => {
-    setUser({ ...user, name: 'Jane Smith' });
+  const [settings, setSettings] = useReduxState<{
+    theme: 'light' | 'dark';
+    notifications: boolean;
+    language: string;
+  }>('complex-settings', {
+    theme: 'light',
+    notifications: true,
+    language: 'en',
+  });
+
+  const updateUserName = (name: string) => {
+    setUser({ ...user, name });
   };
 
-  const handleUpdateAge = () => {
-    update({ age: 30 });
+  const toggleUserStatus = () => {
+    setUser({ ...user, isActive: !user.isActive });
   };
 
-  const handleToggleTheme = () => {
-    update({
-      preferences: {
-        ...user.preferences,
-        theme: user.preferences.theme === 'light' ? 'dark' : 'light',
-      },
-    });
+  const updateTheme = (theme: 'light' | 'dark') => {
+    setSettings({ ...settings, theme });
   };
 
-  const handleToggleNotifications = () => {
-    update({
-      preferences: {
-        ...user.preferences,
-        notifications: !user.preferences.notifications,
-      },
-    });
+  const toggleNotifications = () => {
+    setSettings({ ...settings, notifications: !settings.notifications });
+  };
+
+  const codeExample = `import { useReduxState } from 'redux-toolkit-state';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  isActive: boolean;
+}
+
+const ComplexStateExample = () => {
+  const [user, setUser] = useReduxState<User>('complex-user', {
+    id: 1,
+    name: 'John Doe',
+    email: 'john@example.com',
+    isActive: true,
+  });
+
+  const [settings, setSettings] = useReduxState<{
+    theme: 'light' | 'dark';
+    notifications: boolean;
+    language: string;
+  }>('complex-settings', {
+    theme: 'light',
+    notifications: true,
+    language: 'en',
+  });
+
+  const updateUserName = (name: string) => {
+    setUser({ ...user, name });
+  };
+
+  const toggleUserStatus = () => {
+    setUser({ ...user, isActive: !user.isActive });
+  };
+
+  const updateTheme = (theme: 'light' | 'dark') => {
+    setSettings({ ...settings, theme });
+  };
+
+  const toggleNotifications = () => {
+    setSettings({ ...settings, notifications: !settings.notifications });
   };
 
   return (
+    <div>
+      <h3>User: {user.name}</h3>
+      <p>Email: {user.email}</p>
+      <p>Status: {user.isActive ? 'Active' : 'Inactive'}</p>
+      <p>Theme: {settings.theme}</p>
+      <p>Notifications: {settings.notifications ? 'On' : 'Off'}</p>
+      
+      <button onClick={() => updateUserName('Jane Smith')}>
+        Update Name
+      </button>
+      <button onClick={toggleUserStatus}>
+        Toggle Status
+      </button>
+      <button onClick={() => updateTheme('dark')}>
+        Switch to Dark
+      </button>
+      <button onClick={toggleNotifications}>
+        Toggle Notifications
+      </button>
+    </div>
+  );
+};`;
+
+  return (
     <div className="example-container">
-      <h2>Complex State Management</h2>
       <p className="description">
-        Managing complex objects with nested properties. Demonstrates both direct state updates and
-        partial updates using the update method.
+        This example demonstrates managing complex state objects with multiple properties and nested
+        updates.
       </p>
 
       <div className="demo-section">
-        <div className="user-card">
-          <h3>User Profile</h3>
-          <div className="user-info">
-            <p>
-              <strong>Name:</strong> {user.name}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Age:</strong> {user.age}
-            </p>
-            <p>
-              <strong>Theme:</strong> {user.preferences.theme}
-            </p>
-            <p>
-              <strong>Notifications:</strong>{' '}
-              {user.preferences.notifications ? 'Enabled' : 'Disabled'}
-            </p>
-          </div>
+        <h3>User: {user.name}</h3>
+        <p>Email: {user.email}</p>
+        <p>Status: {user.isActive ? 'Active' : 'Inactive'}</p>
+        <p>Theme: {settings.theme}</p>
+        <p>Notifications: {settings.notifications ? 'On' : 'Off'}</p>
 
-          <div className="button-group">
-            <button onClick={handleUpdateName}>Update Name</button>
-            <button onClick={handleUpdateAge}>Update Age</button>
-            <button onClick={handleToggleTheme}>Toggle Theme</button>
-            <button onClick={handleToggleNotifications}>Toggle Notifications</button>
-          </div>
+        <div className="button-group">
+          <button onClick={() => updateUserName('Jane Smith')}>Update Name</button>
+          <button onClick={toggleUserStatus}>Toggle Status</button>
+          <button onClick={() => updateTheme('dark')}>Switch to Dark</button>
+          <button onClick={toggleNotifications}>Toggle Notifications</button>
         </div>
       </div>
 
       <div className="code-section">
         <h3>Code</h3>
-        <pre>
-          <code>{`interface User {
-  id: number;
-  name: string;
-  email: string;
-  age: number;
-  preferences: {
-    theme: 'light' | 'dark';
-    notifications: boolean;
-  };
-}
-
-const ComplexStateExample = () => {
-  const [user, setUser, { update }] = useReduxState<User>('complex-user', {
-    id: 1,
-    name: 'John Doe',
-    email: 'john@example.com',
-    age: 25,
-    preferences: {
-      theme: 'light',
-      notifications: true,
-    },
-  });
-
-  // Direct state update
-  const handleUpdateName = () => {
-    setUser({ ...user, name: 'Jane Smith' });
-  };
-
-  // Partial update using update method
-  const handleUpdateAge = () => {
-    update({ age: 30 });
-  };
-
-  // Nested object update
-  const handleToggleTheme = () => {
-    update({
-      preferences: {
-        ...user.preferences,
-        theme: user.preferences.theme === 'light' ? 'dark' : 'light',
-      },
-    });
-  };
-};`}</code>
-        </pre>
+        <CodeBlock code={codeExample} language="typescript" title="ComplexStateExample.tsx" />
       </div>
 
       <div className="features">
         <h3>Key Features Demonstrated</h3>
         <ul>
           <li>Complex object state management</li>
-          <li>Partial state updates with update method</li>
-          <li>Nested object updates</li>
           <li>TypeScript interfaces for type safety</li>
-          <li>Immutable state updates</li>
+          <li>Immutable state updates with spread operator</li>
+          <li>Multiple state slices in one component</li>
+          <li>Custom update functions for complex logic</li>
         </ul>
       </div>
     </div>
