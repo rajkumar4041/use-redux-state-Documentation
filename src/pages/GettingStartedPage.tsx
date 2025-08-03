@@ -1,6 +1,49 @@
 import React from 'react';
+import CodeBlock from '../components/CodeBlock';
 
 const GettingStartedPage: React.FC<{ onTabClick?: (tab: string) => void }> = ({ onTabClick }) => {
+  const installationCode = `npm install redux-toolkit-state`;
+  const yarnCode = `yarn add redux-toolkit-state`;
+  const appCode = `import { GlobalReduxProvider } from 'redux-toolkit-state';
+
+function App() {
+  return (
+    <GlobalReduxProvider>
+      <YourApp />
+    </GlobalReduxProvider>
+  );
+}`;
+  const componentCode = `import { useReduxState } from 'redux-toolkit-state';
+
+function Counter() {
+  const [count, setCount] = useReduxState('counter', 0);
+  
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}`;
+  const quickStartCode = `import React from 'react';
+import { GlobalReduxProvider } from 'redux-toolkit-state';
+import Counter from './Counter';
+
+function App() {
+  return (
+    <GlobalReduxProvider>
+      <div className="app">
+        <h1>My Counter App</h1>
+        <Counter />
+      </div>
+    </GlobalReduxProvider>
+  );
+}
+
+export default App;`;
+
   return (
     <div className="getting-started-page">
       <div className="page-header">
@@ -17,21 +60,9 @@ const GettingStartedPage: React.FC<{ onTabClick?: (tab: string) => void }> = ({ 
               <div className="step-number">1</div>
               <div className="step-content">
                 <h3>Install the Package</h3>
-                <div className="code-block">
-                  <div className="code-header">
-                    <span>Terminal</span>
-                    <button className="copy-button">Copy</button>
-                  </div>
-                  <pre>
-                    <code>npm install redux-toolkit-state</code>
-                  </pre>
-                </div>
+                <CodeBlock code={installationCode} language="bash" title="Terminal" />
                 <p>Or using yarn:</p>
-                <div className="code-block">
-                  <pre>
-                    <code>yarn add redux-toolkit-state</code>
-                  </pre>
-                </div>
+                <CodeBlock code={yarnCode} language="bash" title="Terminal" />
               </div>
             </div>
 
@@ -40,23 +71,7 @@ const GettingStartedPage: React.FC<{ onTabClick?: (tab: string) => void }> = ({ 
               <div className="step-content">
                 <h3>Wrap Your App</h3>
                 <p>Wrap your React application with the GlobalReduxProvider:</p>
-                <div className="code-block">
-                  <div className="code-header">
-                    <span>App.tsx</span>
-                    <button className="copy-button">Copy</button>
-                  </div>
-                  <pre>
-                    <code>{`import { GlobalReduxProvider } from 'redux-toolkit-state';
-
-function App() {
-  return (
-    <GlobalReduxProvider>
-      <YourApp />
-    </GlobalReduxProvider>
-  );
-}`}</code>
-                  </pre>
-                </div>
+                <CodeBlock code={appCode} language="typescript" title="App.tsx" />
               </div>
             </div>
 
@@ -65,28 +80,7 @@ function App() {
               <div className="step-content">
                 <h3>Start Using Hooks</h3>
                 <p>Use the hooks in your components:</p>
-                <div className="code-block">
-                  <div className="code-header">
-                    <span>Component.tsx</span>
-                    <button className="copy-button">Copy</button>
-                  </div>
-                  <pre>
-                    <code>{`import { useReduxState } from 'redux-toolkit-state';
-
-function Counter() {
-  const [count, setCount] = useReduxState('counter', 0);
-  
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>
-        Increment
-      </button>
-    </div>
-  );
-}`}</code>
-                  </pre>
-                </div>
+                <CodeBlock code={componentCode} language="typescript" title="Component.tsx" />
               </div>
             </div>
           </div>
@@ -107,24 +101,7 @@ function Counter() {
                   <button className="tab-button">Counter.tsx</button>
                 </div>
                 <div className="tab-content">
-                  <pre>
-                    <code>{`import React from 'react';
-import { GlobalReduxProvider } from 'redux-toolkit-state';
-import Counter from './Counter';
-
-function App() {
-  return (
-    <GlobalReduxProvider>
-      <div className="app">
-        <h1>My Counter App</h1>
-        <Counter />
-      </div>
-    </GlobalReduxProvider>
-  );
-}
-
-export default App;`}</code>
-                  </pre>
+                  <CodeBlock code={quickStartCode} language="typescript" title="App.tsx" />
                 </div>
               </div>
             </div>

@@ -11,7 +11,7 @@ const ProfileAvatars = () => {
   };
 
   return (
-    <div style={{ display: 'flex', gap: '16px', padding: '16px', marginLeft: '30px' }}>
+    <div style={{ display: 'flex', gap: '28px', padding: '16px', marginLeft: '20px' }}>
       {/* GitHub Avatar */}
       <button
         onClick={handleGitHubClick}

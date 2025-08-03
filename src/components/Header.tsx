@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 import ProfileAvatars from '../Profiles';
 
 const Header: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <header className="header">
       <div className="header-left">
@@ -25,6 +28,13 @@ const Header: React.FC = () => {
 
       <div className="header-right">
         <div className="header-actions">
+          <button
+            className="theme-toggle-button"
+            onClick={toggleTheme}
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+          >
+            {theme === 'light' ? '🌙' : '☀️'}
+          </button>
           {/* <button className="action-button">
             <span>🔔</span>
             <span className="notification-badge">3</span>

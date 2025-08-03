@@ -6,6 +6,7 @@ import GlobalReduxProvider from 'redux-toolkit-state';
 import Header from './components/Header';
 // Import components
 import Sidebar from './components/Sidebar';
+import { ThemeProvider } from './contexts/ThemeContext';
 import AdvantagesPage from './pages/AdvantagesPage';
 import DocumentationPage from './pages/DocumentationPage';
 import ExamplesPage from './pages/ExamplesPage';
@@ -28,17 +29,19 @@ function App() {
   const ActiveComponent = tabs.find((tab) => tab.id === activeTab)?.component || HomePage;
 
   return (
-    <GlobalReduxProvider>
-      <div className="app">
-        <Header />
-        <div className="app-container">
-          <Sidebar activeTab={activeTab} onTabChange={setActiveTab} tabs={tabs} />
-          <main className="main-content">
-            <ActiveComponent onTabClick={setActiveTab} />
-          </main>
+    <ThemeProvider>
+      <GlobalReduxProvider>
+        <div className="app">
+          <Header />
+          <div className="app-container">
+            <Sidebar activeTab={activeTab} onTabChange={setActiveTab} tabs={tabs} />
+            <main className="main-content">
+              <ActiveComponent onTabClick={setActiveTab} />
+            </main>
+          </div>
         </div>
-      </div>
-    </GlobalReduxProvider>
+      </GlobalReduxProvider>
+    </ThemeProvider>
   );
 }
 

@@ -17,7 +17,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, tabs }) => {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
-        <h3 className="sidebar-title">Navigation</h3>
+        <h3 className="sidebar-title">Navigations</h3>
       </div>
 
       <nav className="sidebar-nav">

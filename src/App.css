@@ -10,9 +10,53 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   line-height: 1.6;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Dark theme styles */
+body.dark {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+/* CSS Variables for theming */
+:root {
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f8f9fa;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --border-color: #e0e0e0;
+  --header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --sidebar-bg: #ffffff;
+  --code-bg: #f8f9fa;
+  --code-border: #e0e0e0;
+  --code-header-bg: #e9ecef;
+  --copy-button-bg: #1976d2;
+  --copy-button-hover: #1565c0;
+  --shadow: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='dark'] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #3a3a3a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --border-color: #404040;
+  --header-bg: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  --sidebar-bg: #2d2d2d;
+  --code-bg: #2d2d2d;
+  --code-border: #404040;
+  --code-header-bg: #3a3a3a;
+  --copy-button-bg: #3182ce;
+  --copy-button-hover: #2c5aa0;
+  --shadow: rgba(0, 0, 0, 0.3);
 }
 
 /* App layout */
@@ -26,14 +70,14 @@ body {
 /* Header */
 .header {
   width: 100svw;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--header-bg);
   color: white;
   padding: 0 2rem;
   max-height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -125,7 +169,26 @@ body {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+}
+
+.theme-toggle-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.theme-toggle-button:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .action-button {
@@ -208,8 +271,8 @@ body {
 /* Sidebar */
 .sidebar {
   width: 280px;
-  background: white;
-  border-right: 1px solid #e0e0e0;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -217,18 +280,18 @@ body {
 
 .sidebar-header {
   padding: 2rem 1.5rem 1rem;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .sidebar-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .sidebar-nav {
   flex: 1;
-  padding: 1rem 0;
+  padding: 0.8rem;
 }
 
 .nav-list {
@@ -246,7 +309,7 @@ body {
   border: none;
   text-align: left;
   font-size: 0.95rem;
-  color: #666;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -256,8 +319,8 @@ body {
 }
 
 .nav-button:hover {
-  background-color: #f8f9fa;
-  color: #333;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 .nav-button.active {
@@ -290,8 +353,8 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 1.5rem;
-  border-top: 1px solid #f0f0f0;
-  background: #f8f9fa;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
 }
 
 .version-info {
@@ -303,7 +366,7 @@ body {
 
 .version-label {
   font-size: 0.8rem;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .version-number {
@@ -318,14 +381,14 @@ body {
 
 .package-name {
   font-size: 0.8rem;
-  color: #666;
+  color: var(--text-secondary);
   font-family: 'Monaco', 'Consolas', monospace;
 }
 
 /* Main content */
 .main-content {
   flex: 1;
-  background: #f5f5f5;
+  background: var(--bg-primary);
   overflow-y: auto;
   padding: 1.4rem;
 }
@@ -336,19 +399,54 @@ body {
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-header-content {
+  flex: 1;
 }
 
 .page-header h1 {
   font-size: 2.2rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .page-header p {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-secondary);
   max-width: 600px;
+}
+
+.page-header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.copy-link-button {
+  background: var(--copy-button-bg);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.copy-link-button:hover {
+  background: var(--copy-button-hover);
+  transform: translateY(-1px);
+}
+
+.copy-link-button.copied {
+  background: #4caf50;
 }
 
 /* Home page styles */
@@ -496,7 +594,8 @@ body {
 }
 
 .feature-card {
-  background: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -506,6 +605,8 @@ body {
 
 .feature-card:hover {
   transform: translateY(-4px);
+  color: white;
+  background-color: var(--bg-primary);
 }
 
 .feature-icon {
@@ -516,12 +617,12 @@ body {
 .feature-card h3 {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
 .feature-card p {
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
@@ -532,12 +633,14 @@ body {
 
 .stats-grid {
   display: grid;
+  color: var(--text-primary);
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
 }
 
 .stat-card {
-  background: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -559,7 +662,8 @@ body {
 
 /* CTA section */
 .cta-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  background: var(--header-bg);
   color: white;
   padding: 4rem 2rem;
   border-radius: 16px;
@@ -614,10 +718,10 @@ body {
 .step-card {
   display: flex;
   gap: 1.5rem;
-  background: white;
+  background: var(--bg-secondary);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px var(--shadow);
 }
 
 .step-number {
@@ -636,48 +740,62 @@ body {
 .step-content h3 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
 .code-block {
-  background: #f8f9fa;
-  border: 1px solid #e0e0e0;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
   border-radius: 8px;
   overflow: hidden;
   margin: 1rem 0;
+  transition: all 0.3s ease;
 }
 
 .code-header {
-  background: #e9ecef;
+  background: var(--code-header-bg);
   padding: 0.75rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.8rem;
-  color: #666;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--code-border);
 }
 
 .copy-button {
-  background: #1976d2;
+  background: var(--copy-button-bg);
   color: white;
   border: none;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.7rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
   cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.copy-button:hover {
+  background: var(--copy-button-hover);
+  transform: translateY(-1px);
+}
+
+.copy-button.copied {
+  background: #4caf50;
 }
 
 .code-block pre {
   margin: 0;
   padding: 1rem;
-  background: #f8f9fa;
+  background: var(--code-bg);
   overflow-x: auto;
 }
 
 .code-block code {
-  font-family: 'Monaco', 'Consolas', monospace;
+  font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
   font-size: 0.9rem;
+  color: var(--text-primary);
 }
 
 /* Examples page */
@@ -693,9 +811,9 @@ body {
 
 .examples-sidebar {
   width: 300px;
-  background: white;
+  background: var(--bg-secondary);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px var(--shadow);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -704,6 +822,8 @@ body {
 .examples-sidebar .sidebar-header {
   padding: 1.5rem;
   border-bottom: 1px solid #f0f0f0;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
 }
 
 .filter-controls {
@@ -720,16 +840,22 @@ body {
 
 .examples-nav {
   flex: 1;
+  padding: 0.5rem;
   overflow-y: auto;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
 }
 
 .examples-list {
   list-style: none;
   padding: 0;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
 }
 
 .example-item {
   margin: 0;
+  color: var(--text-primary);
 }
 
 .example-button {
@@ -748,17 +874,18 @@ body {
 
 .example-button:hover {
   background: #f8f9fa;
+  color: black;
 }
 
 .example-button.active {
   background: #e3f2fd;
   border-left: 4px solid #1976d2;
+  color: var(--text-primary);
 }
 
 .example-info h4 {
   font-size: 1rem;
   font-weight: 600;
-  color: #1a1a1a;
   margin: 0;
 }
 
@@ -803,6 +930,26 @@ body {
   height: 100%;
   overflow-y: auto;
   padding: 2rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow);
+}
+
+.example-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-tertiary);
+  margin: -2rem -2rem 2rem -2rem;
+}
+
+.example-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
 }
 
 /* Documentation page */
@@ -937,7 +1084,8 @@ body {
 }
 
 .feature-item {
-  background: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -954,12 +1102,12 @@ body {
 .feature-content h3 {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
 .feature-content p {
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 1rem;
 }
@@ -971,7 +1119,7 @@ body {
 
 .feature-content li {
   padding: 0.25rem 0;
-  color: #666;
+  color: var(--text-secondary);
   position: relative;
   padding-left: 1.5rem;
 }
@@ -989,14 +1137,18 @@ body {
 }
 
 .comparison-table {
-  background: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
   overflow: hidden;
 }
 
 .comparison-table table {
   width: 100%;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   border-collapse: collapse;
 }
 
@@ -1004,17 +1156,17 @@ body {
 .comparison-table td {
   padding: 1rem;
   text-align: left;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .comparison-table th {
-  background: #f8f9fa;
+  background: var(--bg-primary);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .comparison-table td {
-  color: #666;
+  color: var(--text-secondary);
 }
 
 /* Advantages page */
@@ -1043,7 +1195,8 @@ body {
 }
 
 .advantage-card {
-  background: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -1058,12 +1211,12 @@ body {
 .advantage-card h3 {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
 .advantage-card p {
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
@@ -1076,7 +1229,7 @@ body {
 
 .advantage-card li {
   padding: 0.5rem 0;
-  color: #666;
+  color: var(--text-primary);
   position: relative;
   padding-left: 1.5rem;
 }
@@ -1096,7 +1249,8 @@ body {
 }
 
 .comparison-card {
-  background: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -1105,7 +1259,7 @@ body {
 .comparison-card h3 {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -1120,7 +1274,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .advantage-item .advantage-icon {
@@ -1139,7 +1293,8 @@ body {
 }
 
 .use-case-card {
-  background: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -1159,12 +1314,12 @@ body {
 .use-case-card h3 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
 .use-case-card p {
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
@@ -1253,4 +1408,48 @@ body {
   .app-container {
     flex-direction: column;
   }
+}
+
+.step-button {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.step-button:hover {
+  background-color: rgb(62, 99, 192);
+  color: black;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+.button-group button,
+.button-custom {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button-group button:hover,
+.button-custom:hover {
+  background-color: var(--copy-button-bg);
+  color: white;
 }

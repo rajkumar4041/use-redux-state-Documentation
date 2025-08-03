@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // Import all example components
 import BasicUsageExample from '../examples/BasicUsageExample';
 import ComplexStateExample from '../examples/ComplexStateExample';
@@ -77,8 +77,24 @@ const ExamplesPage: React.FC = () => {
     },
   ];
 
+  // Handle URL hash changes for direct linking to examples
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && examples.find((ex) => ex.id === hash)) {
+      setActiveExample(hash);
+    }
+  }, []);
+
+  const handleExampleChange = (exampleId: string) => {
+    setActiveExample(exampleId);
+    // Update URL hash for direct linking
+    window.location.hash = exampleId;
+  };
+
   const ActiveComponent =
     examples.find((ex) => ex.id === activeExample)?.component || BasicUsageExample;
+
+  const activeExampleData = examples.find((ex) => ex.id === activeExample);
 
   return (
     <div className="examples-page">
@@ -91,14 +107,6 @@ const ExamplesPage: React.FC = () => {
         <aside className="examples-sidebar">
           <div className="sidebar-header">
             <h3>Examples</h3>
-            <div className="filter-controls">
-              <select className="difficulty-filter">
-                <option value="all">All Levels</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
-            </div>
           </div>
 
           <nav className="examples-nav">
@@ -107,9 +115,9 @@ const ExamplesPage: React.FC = () => {
                 <li key={example.id} className="example-item">
                   <button
                     className={`example-button ${activeExample === example.id ? 'active' : ''}`}
-                    onClick={() => setActiveExample(example.id)}
+                    onClick={() => handleExampleChange(example.id)}
                   >
-                    <div className="example-info">
+                    <div className="example-info" style={{ color: activeExample === example.id ? 'black' : 'var(--text-primary)' }}>
                       <h4>{example.name}</h4>
                     </div>
                     {/* <span className={`difficulty-badge ${example.difficulty.toLowerCase()}`}>
@@ -124,6 +132,12 @@ const ExamplesPage: React.FC = () => {
 
         <main className="examples-content">
           <div className="example-viewer">
+            <div className="example-header">
+              <h2>{activeExampleData?.name}</h2>
+              <span className={`difficulty-badge ${activeExampleData?.difficulty.toLowerCase()}`}>
+                {activeExampleData?.difficulty}
+              </span>
+            </div>
             <ActiveComponent />
           </div>
         </main>

@@ -6,7 +6,9 @@ const HomePage: React.FC<{ onTabClick?: (tab: string) => void }> = ({ onTabClick
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">Redux Toolkit State Management</h1>
+          <h1 className="hero-title" style={{ color: 'var(--primary-color)' }}>
+            Redux Toolkit State Management
+          </h1>
           <p className="hero-subtitle">
             A <b>powerful</b>, <b>lightweight</b>, and <b>intuitive</b> state management solution
             for React applications. Built with TypeScript and designed for modern development
