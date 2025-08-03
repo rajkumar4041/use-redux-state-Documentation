@@ -1,6 +1,9 @@
-# redux-toolkit-state Examples
+# redux-toolkit-state Documentation
 
 A comprehensive showcase of the `redux-toolkit-state` package capabilities, demonstrating various use cases and patterns for global state management in React applications.
+[Link](https://use-redux-state-examples-git-f-c394df-rajkumar-rathods-projects.vercel.app/)
+
+[NPM](https://www.npmjs.com/package/redux-toolkit-state?activeTab=readme)
 
 ## 🚀 Features
 
