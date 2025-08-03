@@ -1,6 +1,6 @@
 const ProfileAvatars = () => {
-  const githubUrl = 'https://github.com/rajkumar4041';
-  const npmUrl = 'https://github.com/rajkumar4041/redux-toolkit-state';
+  const githubUrl = 'https://github.com/rajkumar4041/use-redux-state';
+  const npmUrl = 'https://www.npmjs.com/package/redux-toolkit-state?activeTab=readme';
 
   const handleGitHubClick = () => {
     window.open(githubUrl, '_blank', 'noopener,noreferrer');
@@ -16,9 +16,9 @@ const ProfileAvatars = () => {
       <button
         onClick={handleGitHubClick}
         style={{
-          width: '64px',
-          height: '64px',
-          backgroundColor: '#1f2937',
+          width: '54px',
+          height: '54px',
+          // backgroundColor: '#1f2937',
           borderRadius: '50%',
           border: 'none',
           display: 'flex',
@@ -47,8 +47,8 @@ const ProfileAvatars = () => {
       <button
         onClick={handleNpmClick}
         style={{
-          width: '64px',
-          height: '64px',
+          width: '54px',
+          height: '54px',
           backgroundColor: '#dc2626',
           borderRadius: '50%',
           border: 'none',
