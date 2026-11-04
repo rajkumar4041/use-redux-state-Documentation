@@ -131,17 +131,28 @@ npm run dev
 
 ### Hook Usage
 
-- `useReduxState`: Full state management with setters and utilities
-- `useReduxStateSelector`: Derived state and computed values
+- `useReduxState`: Full state management with setters and utilities (`update`, `reset`)
 - `useReduxStateValue`: Read-only state access
+- `useReduxStateSetValue`: Write-only setters (`setValue`, `update`) with no value subscription
+- `useReduxStateReset`: Reset a single slice back to its initial value
+- `useReduxStateSelector`: Derived state and computed values
 - `useMultipleGlobalStates`: Bulk state access
+
+### Store Utilities
+
+- `getStore`: Access the underlying store instance
+- `getRegisteredKeys`: List all registered state keys
+- `clearSlices`: Clear all slices (useful for testing)
 
 ### Advanced Features
 
+- **Zero dependencies**: No Redux or react-redux — React is the only peer dependency
+- **No Provider required**: State is global out of the box
+- **Survive-refresh persistence**: Optional ephemeral IndexedDB bridge via `GlobalReduxProvider`
 - **Partial Updates**: Using the `update` method for object state
 - **Reset Functionality**: Resetting state to initial values
 - **Type Safety**: Full TypeScript support with interfaces
-- **Performance**: Memoized selectors and optimized re-renders
+- **Performance**: Selector-based re-renders via `useSyncExternalStore`
 
 ## 🎨 UI Components
 

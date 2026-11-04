@@ -27,7 +27,7 @@
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "redux-toolkit-state": "^1.0.1"
+    "redux-toolkit-state": "^1.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
