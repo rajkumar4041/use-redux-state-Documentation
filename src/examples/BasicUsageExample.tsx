@@ -7,13 +7,15 @@ const BasicUsageExample = () => {
   const codeExample = `import { useReduxState } from 'redux-toolkit-state';
 
 const BasicUsageExample = () => {
+  // No Provider needed — state is global out of the box
   const [count, setCount] = useReduxState<number>('basic-counter', 0);
 
   return (
     <div>
       <h3>Counter: {count}</h3>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      {/* Functional updater, just like useState */}
+      <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+      <button onClick={() => setCount((c) => c - 1)}>Decrement</button>
       <button onClick={() => setCount(0)}>Reset</button>
     </div>
   );
@@ -29,8 +31,8 @@ const BasicUsageExample = () => {
       <div className="demo-section">
         <h3>Counter: {count}</h3>
         <div className="button-group">
-          <button onClick={() => setCount(count + 1)}>Increment</button>
-          <button onClick={() => setCount(count - 1)}>Decrement</button>
+          <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+          <button onClick={() => setCount((c) => c - 1)}>Decrement</button>
           <button onClick={() => setCount(0)}>Reset</button>
         </div>
       </div>
@@ -45,8 +47,8 @@ const BasicUsageExample = () => {
         <ul>
           <li>Simple state management with useReduxState</li>
           <li>TypeScript support with generic types</li>
-          <li>Direct state updates with setter function</li>
-          <li>Global state accessible across components</li>
+          <li>Functional updates like useState (setCount(prev =&gt; prev + 1))</li>
+          <li>Global state accessible across components — no Provider required</li>
         </ul>
       </div>
     </div>

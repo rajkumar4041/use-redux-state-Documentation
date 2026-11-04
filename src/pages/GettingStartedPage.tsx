@@ -4,20 +4,13 @@ import CodeBlock from '../components/CodeBlock';
 const GettingStartedPage: React.FC<{ onTabClick?: (tab: string) => void }> = ({ onTabClick }) => {
   const installationCode = `npm install redux-toolkit-state`;
   const yarnCode = `yarn add redux-toolkit-state`;
-  const appCode = `import { GlobalReduxProvider } from 'redux-toolkit-state';
-
-function App() {
-  return (
-    <GlobalReduxProvider>
-      <YourApp />
-    </GlobalReduxProvider>
-  );
-}`;
   const componentCode = `import { useReduxState } from 'redux-toolkit-state';
 
+// No Provider required — state is global out of the box.
+// Any component using the same key shares the value.
 function Counter() {
   const [count, setCount] = useReduxState('counter', 0);
-  
+
   return (
     <div>
       <p>Count: {count}</p>
@@ -27,18 +20,27 @@ function Counter() {
     </div>
   );
 }`;
-  const quickStartCode = `import React from 'react';
-import { GlobalReduxProvider } from 'redux-toolkit-state';
-import Counter from './Counter';
+  const appCode = `import { GlobalReduxProvider } from 'redux-toolkit-state';
 
+// Optional: wrap your app ONLY if you want survive-refresh persistence.
+// State is stashed in IndexedDB, restored on the next load, then wiped.
 function App() {
   return (
     <GlobalReduxProvider>
-      <div className="app">
-        <h1>My Counter App</h1>
-        <Counter />
-      </div>
+      <YourApp />
     </GlobalReduxProvider>
+  );
+}`;
+  const quickStartCode = `import React from 'react';
+import Counter from './Counter';
+
+// Plain global state needs no Provider — just render your app.
+function App() {
+  return (
+    <div className="app">
+      <h1>My Counter App</h1>
+      <Counter />
+    </div>
   );
 }
 
@@ -69,18 +71,25 @@ export default App;`;
             <div className="step-card">
               <div className="step-number">2</div>
               <div className="step-content">
-                <h3>Wrap Your App</h3>
-                <p>Wrap your React application with the GlobalReduxProvider:</p>
-                <CodeBlock code={appCode} language="typescript" title="App.tsx" />
+                <h3>Start Using Hooks</h3>
+                <p>
+                  Use the hooks anywhere — no Provider needed. Components sharing the same key share
+                  the value:
+                </p>
+                <CodeBlock code={componentCode} language="typescript" title="Component.tsx" />
               </div>
             </div>
 
             <div className="step-card">
               <div className="step-number">3</div>
               <div className="step-content">
-                <h3>Start Using Hooks</h3>
-                <p>Use the hooks in your components:</p>
-                <CodeBlock code={componentCode} language="typescript" title="Component.tsx" />
+                <h3>Optional: Enable Persistence</h3>
+                <p>
+                  Only if you want state to survive a page refresh, wrap your app in{' '}
+                  <code>GlobalReduxProvider</code>. It uses an ephemeral IndexedDB bridge that
+                  restores state on the next load, then clears itself:
+                </p>
+                <CodeBlock code={appCode} language="typescript" title="App.tsx" />
               </div>
             </div>
           </div>
@@ -115,7 +124,7 @@ export default App;`;
             <div className="requirement-card">
               <div className="requirement-icon">⚛️</div>
               <h3>React</h3>
-              <p>React 16.8+ (for hooks support)</p>
+              <p>React 18+ (uses useSyncExternalStore)</p>
             </div>
             <div className="requirement-card">
               <div className="requirement-icon">📝</div>

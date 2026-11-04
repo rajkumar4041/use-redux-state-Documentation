@@ -33,16 +33,37 @@ const DocumentationPage: React.FC = () => {
                   <a href="#useReduxState">useReduxState</a>
                 </li>
                 <li>
-                  <a href="#useReduxStateSelector">useReduxStateSelector</a>
+                  <a href="#useReduxStateValue">useReduxStateValue</a>
                 </li>
                 <li>
-                  <a href="#useReduxStateValue">useReduxStateValue</a>
+                  <a href="#useReduxStateSetValue">useReduxStateSetValue</a>
+                </li>
+                <li>
+                  <a href="#useReduxStateReset">useReduxStateReset</a>
+                </li>
+                <li>
+                  <a href="#useReduxStateSelector">useReduxStateSelector</a>
                 </li>
                 <li>
                   <a href="#useMultipleGlobalStates">useMultipleGlobalStates</a>
                 </li>
                 <li>
                   <a href="#GlobalReduxProvider">GlobalReduxProvider</a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="nav-section">
+              <h3>Store Utilities</h3>
+              <ul>
+                <li>
+                  <a href="#getStore">getStore</a>
+                </li>
+                <li>
+                  <a href="#getRegisteredKeys">getRegisteredKeys</a>
+                </li>
+                <li>
+                  <a href="#clearSlices">clearSlices</a>
                 </li>
               </ul>
             </div>
@@ -73,6 +94,12 @@ const DocumentationPage: React.FC = () => {
                 <code>npm install redux-toolkit-state</code>
               </pre>
             </div>
+            <p>
+              The library has <strong>zero runtime dependencies</strong> — no Redux and no
+              react-redux. React (<code>&gt;=18</code>) is the only peer dependency, since the store
+              subscribes via <code>useSyncExternalStore</code>. No Provider is required for global
+              state.
+            </p>
           </section>
 
           <section id="useReduxState" className="doc-section">
@@ -92,6 +119,9 @@ const DocumentationPage: React.FC = () => {
 // Direct update
 setCount(5);
 
+// Functional update (just like useState)
+setCount((prev) => prev + 1);
+
 // Partial update (for objects)
 update({ name: 'John' });
 
@@ -106,7 +136,7 @@ reset();`}</code>
             <p>Hook for creating derived state with memoization.</p>
             <div className="api-signature">
               <code>
-                useReduxStateSelector&lt;R, T&gt;(key: string, selector: (state: T) =&gt; R): R
+                useReduxStateSelector&lt;T, R&gt;(key: string, selector: (state: T) =&gt; R): R
               </code>
             </div>
             <div className="code-example">
@@ -134,6 +164,52 @@ reset();`}</code>
             </div>
           </section>
 
+          <section id="useReduxStateSetValue" className="doc-section">
+            <h2>useReduxStateSetValue</h2>
+            <p>
+              Returns only the setters for a key — no value subscription, so the component does not
+              re-render when the state changes. Ideal for write-only controls.
+            </p>
+            <div className="api-signature">
+              <code>
+                useReduxStateSetValue&lt;T&gt;(key: string, initialValue?: T): [(value: T) =&gt;
+                void, (partial: Partial&lt;T&gt;) =&gt; void]
+              </code>
+            </div>
+            <div className="code-example">
+              <h4>Example</h4>
+              <pre>
+                <code>{`const [setUser, update] = useReduxStateSetValue('user');
+
+// Replace the whole value
+setUser({ name: 'Jane', email: 'jane@example.com' });
+
+// Merge a partial update
+update({ name: 'Jane' });`}</code>
+              </pre>
+            </div>
+          </section>
+
+          <section id="useReduxStateReset" className="doc-section">
+            <h2>useReduxStateReset</h2>
+            <p>
+              Returns a handler that resets a single slice back to its initial value. Useful for
+              clear/cancel buttons without subscribing to the value.
+            </p>
+            <div className="api-signature">
+              <code>useReduxStateReset(key: string): () =&gt; void</code>
+            </div>
+            <div className="code-example">
+              <h4>Example</h4>
+              <pre>
+                <code>{`const resetUser = useReduxStateReset('user');
+
+// Call when needed
+<button onClick={resetUser}>Reset</button>`}</code>
+              </pre>
+            </div>
+          </section>
+
           <section id="useMultipleGlobalStates" className="doc-section">
             <h2>useMultipleGlobalStates</h2>
             <p>Hook for accessing multiple state slices at once.</p>
@@ -151,7 +227,14 @@ reset();`}</code>
 
           <section id="GlobalReduxProvider" className="doc-section">
             <h2>GlobalReduxProvider</h2>
-            <p>Provider component that wraps your React application.</p>
+            <p>
+              <strong>Optional.</strong> Global state works without any Provider. Wrap your app in{' '}
+              <code>GlobalReduxProvider</code> only to enable <em>survive-refresh</em> persistence:
+              state is stashed in IndexedDB, restored on the next load, then wiped — a bridge across
+              a reload, not long-term storage. Because the restore read is async, the first paint
+              shows initial values and then re-renders once restore completes. It safely no-ops in
+              SSR or environments without IndexedDB.
+            </p>
             <div className="code-example">
               <h4>Example</h4>
               <pre>
@@ -164,6 +247,56 @@ function App() {
     </GlobalReduxProvider>
   );
 }`}</code>
+              </pre>
+            </div>
+          </section>
+
+          <section id="getStore" className="doc-section">
+            <h2>getStore</h2>
+            <p>Returns the underlying store instance. Useful for debugging and testing.</p>
+            <div className="api-signature">
+              <code>getStore(): Store</code>
+            </div>
+            <div className="code-example">
+              <h4>Example</h4>
+              <pre>
+                <code>{`import { getStore } from 'redux-toolkit-state';
+
+const store = getStore();`}</code>
+              </pre>
+            </div>
+          </section>
+
+          <section id="getRegisteredKeys" className="doc-section">
+            <h2>getRegisteredKeys</h2>
+            <p>Returns an array of all state keys currently registered in the store.</p>
+            <div className="api-signature">
+              <code>getRegisteredKeys(): string[]</code>
+            </div>
+            <div className="code-example">
+              <h4>Example</h4>
+              <pre>
+                <code>{`import { getRegisteredKeys } from 'redux-toolkit-state';
+
+const keys = getRegisteredKeys();
+// e.g. ['counter', 'user', 'cart']`}</code>
+              </pre>
+            </div>
+          </section>
+
+          <section id="clearSlices" className="doc-section">
+            <h2>clearSlices</h2>
+            <p>Clears all registered state slices. Handy for resetting state between tests.</p>
+            <div className="api-signature">
+              <code>clearSlices(): void</code>
+            </div>
+            <div className="code-example">
+              <h4>Example</h4>
+              <pre>
+                <code>{`import { clearSlices } from 'redux-toolkit-state';
+
+// e.g. in a test teardown
+clearSlices();`}</code>
               </pre>
             </div>
           </section>

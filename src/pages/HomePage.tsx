@@ -11,7 +11,8 @@ const HomePage: React.FC<{ onTabClick?: (tab: string) => void }> = ({ onTabClick
           </h1>
           <p className="hero-subtitle">
             A <b>powerful</b>, <b>lightweight</b>, and <b>intuitive</b> state management solution
-            for React applications. Built with TypeScript and designed for modern development
+            for React applications. <b>Zero runtime dependencies</b>, no Provider required, and a
+            familiar <code>useState</code>-like API — built with TypeScript for modern development
             workflows.
           </p>
           <div className="hero-actions">
@@ -31,16 +32,12 @@ const HomePage: React.FC<{ onTabClick?: (tab: string) => void }> = ({ onTabClick
               <span className="code-dot green"></span>
             </div>
             <pre className="code-content">
-              <code>{`import GlobalReduxProvider, { useReduxState } 
-              from 'redux-toolkit-state';
-
-<GlobalReduxProvider>
-  <App />
-</GlobalReduxProvider>
+              <code>{`// No Provider required — state is global out of the box
+import { useReduxState } from 'redux-toolkit-state';
 
 const Counter = () => {
   const [count, setCount] = useReduxState('counter', 0);
-  
+
   return (
     <div>
       <h2>Count: {count}</h2>
@@ -76,21 +73,24 @@ const Counter = () => {
           </div>
           <div className="feature-card">
             <div className="feature-icon">🔄</div>
-            <h3>Global State</h3>
-            <p>Seamless global state management with automatic persistence and synchronization.</p>
+            <h3>Global State, No Provider</h3>
+            <p>
+              State is global out of the box — share a value across components just by using the
+              same key. No Context or Provider boilerplate.
+            </p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">🛠️</div>
-            <h3>Developer Tools</h3>
+            <div className="feature-icon">💾</div>
+            <h3>Survive-Refresh Persistence</h3>
             <p>
-              Built-in debugging tools and Redux DevTools integration for better development
-              experience.
+              Opt into an ephemeral IndexedDB bridge that restores state after a page reload, then
+              clears itself — just wrap your app in GlobalReduxProvider.
             </p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">📦</div>
-            <h3>Tiny Bundle</h3>
-            <p>Minimal bundle size with tree-shaking support for optimal production builds.</p>
+            <h3>Zero Dependencies</h3>
+            <p>No Redux, no react-redux — React is the only peer dependency. Tree-shakeable.</p>
           </div>
         </div>
       </section>
@@ -107,12 +107,12 @@ const Counter = () => {
             <div className="stat-label">TypeScript</div>
           </div>
           <div className="stat-card">
-            <div className="stat-number">5kb</div>
-            <div className="stat-label">Bundle Size</div>
+            <div className="stat-number">0</div>
+            <div className="stat-label">Dependencies</div>
           </div>
           <div className="stat-card">
-            <div className="stat-number">∞</div>
-            <div className="stat-label">Possibilities</div>
+            <div className="stat-number">1.6kb</div>
+            <div className="stat-label">Gzipped</div>
           </div>
         </div>
       </section>

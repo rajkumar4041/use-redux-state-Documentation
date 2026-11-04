@@ -31,15 +31,15 @@ const AdvantagesPage: React.FC = () => {
 
             <div className="advantage-card">
               <div className="advantage-icon">📦</div>
-              <h3>Tiny Bundle Size</h3>
+              <h3>Tiny & Zero Dependencies</h3>
               <p>
-                Only 5kb gzipped, making it one of the smallest state management libraries
-                available.
+                Just ~1.6 kB gzipped (3.7 kB minified) with no Redux and no react-redux — React is
+                the only peer dependency.
               </p>
               <ul>
-                <li>5kb gzipped bundle size</li>
-                <li>Tree-shaking support</li>
-                <li>No external dependencies</li>
+                <li>~1.6 kB gzipped bundle size</li>
+                <li>Zero runtime dependencies</li>
+                <li>React {'>'}=18 as the only peer dependency</li>
               </ul>
             </div>
 
@@ -86,15 +86,15 @@ const AdvantagesPage: React.FC = () => {
 
             <div className="advantage-card">
               <div className="advantage-icon">🛠️</div>
-              <h3>Developer Tools</h3>
+              <h3>Store Utilities</h3>
               <p>
-                Built-in debugging tools and Redux DevTools integration for better development
-                experience.
+                Inspect and reset state programmatically with built-in helpers — great for
+                debugging and testing.
               </p>
               <ul>
-                <li>Redux DevTools integration</li>
-                <li>State inspection</li>
-                <li>Time-travel debugging</li>
+                <li>getStore() for the store instance</li>
+                <li>getRegisteredKeys() to list all keys</li>
+                <li>clearSlices() to reset in tests</li>
               </ul>
             </div>
           </div>
@@ -108,11 +108,12 @@ const AdvantagesPage: React.FC = () => {
               <div className="advantage-icon">🔄</div>
               <h3>Global State Management</h3>
               <p>
-                Seamless global state management with automatic persistence and synchronization.
+                Seamless global state with no Provider, plus opt-in survive-refresh persistence when
+                you need it.
               </p>
               <ul>
                 <li>Global state accessibility</li>
-                <li>Automatic state persistence</li>
+                <li>Opt-in survive-refresh persistence</li>
                 <li>Cross-component synchronization</li>
               </ul>
             </div>
@@ -175,19 +176,19 @@ const AdvantagesPage: React.FC = () => {
                 <div className="advantage-list">
                   <div className="advantage-item">
                     <span className="advantage-icon">✅</span>
-                    <span>Built-in DevTools</span>
+                    <span>Familiar useState-like API</span>
                   </div>
                   <div className="advantage-item">
                     <span className="advantage-icon">✅</span>
-                    <span>Better Redux integration</span>
+                    <span>No store definition boilerplate</span>
                   </div>
                   <div className="advantage-item">
                     <span className="advantage-icon">✅</span>
-                    <span>More powerful selectors</span>
+                    <span>Built-in partial update &amp; reset</span>
                   </div>
                   <div className="advantage-item">
                     <span className="advantage-icon">✅</span>
-                    <span>Enterprise-ready features</span>
+                    <span>Opt-in survive-refresh persistence</span>
                   </div>
                 </div>
               </div>
@@ -199,19 +200,19 @@ const AdvantagesPage: React.FC = () => {
                 <div className="advantage-list">
                   <div className="advantage-item">
                     <span className="advantage-icon">✅</span>
-                    <span>Better performance</span>
+                    <span>Better performance (no re-render cascades)</span>
                   </div>
                   <div className="advantage-item">
                     <span className="advantage-icon">✅</span>
-                    <span>DevTools support</span>
+                    <span>No Provider wrapping needed</span>
                   </div>
                   <div className="advantage-item">
                     <span className="advantage-icon">✅</span>
-                    <span>TypeScript support</span>
+                    <span>Full TypeScript support</span>
                   </div>
                   <div className="advantage-item">
                     <span className="advantage-icon">✅</span>
-                    <span>Advanced features</span>
+                    <span>Selectors &amp; partial updates</span>
                   </div>
                 </div>
               </div>

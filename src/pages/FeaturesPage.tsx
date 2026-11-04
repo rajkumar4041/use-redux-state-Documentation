@@ -21,12 +21,12 @@ const FeaturesPage: React.FC = () => {
               <div className="feature-content">
                 <h3>Lightning Fast Performance</h3>
                 <p>
-                  Optimized for speed with minimal re-renders and efficient state updates. Built on
-                  top of Redux with performance optimizations.
+                  A zero-dependency vanilla store (inspired by Zustand) with fine-grained,
+                  selector-based re-renders powered by <code>useSyncExternalStore</code>.
                 </p>
                 <ul>
-                  <li>Minimal bundle size (5kb gzipped)</li>
-                  <li>Smart re-rendering optimization</li>
+                  <li>Tiny footprint (~1.6 kB gzipped)</li>
+                  <li>Selector-based re-render granularity</li>
                   <li>Efficient state synchronization</li>
                 </ul>
               </div>
@@ -73,14 +73,14 @@ const FeaturesPage: React.FC = () => {
             <div className="feature-item">
               <div className="feature-icon">🔄</div>
               <div className="feature-content">
-                <h3>Global State Management</h3>
+                <h3>Global State, No Provider</h3>
                 <p>
-                  Seamless global state management with automatic persistence and cross-component
-                  synchronization.
+                  State is global out of the box — no Context or Provider boilerplate. Components
+                  using the same key stay in sync automatically.
                 </p>
                 <ul>
                   <li>Global state accessible anywhere</li>
-                  <li>Automatic state persistence</li>
+                  <li>No Provider required</li>
                   <li>Cross-component synchronization</li>
                 </ul>
               </div>
@@ -103,17 +103,17 @@ const FeaturesPage: React.FC = () => {
             </div>
 
             <div className="feature-item">
-              <div className="feature-icon">🛠️</div>
+              <div className="feature-icon">💾</div>
               <div className="feature-content">
-                <h3>Developer Tools</h3>
+                <h3>Survive-Refresh Persistence</h3>
                 <p>
-                  Built-in debugging tools and Redux DevTools integration for better development
-                  experience.
+                  Opt into an ephemeral IndexedDB bridge (via GlobalReduxProvider) that restores
+                  state after a reload, then clears itself. Safely no-ops in SSR.
                 </p>
                 <ul>
-                  <li>Redux DevTools integration</li>
-                  <li>State inspection</li>
-                  <li>Time-travel debugging</li>
+                  <li>Opt-in via GlobalReduxProvider</li>
+                  <li>Restores once, then wipes</li>
+                  <li>SSR-safe, IndexedDB-backed</li>
                 </ul>
               </div>
             </div>
@@ -182,7 +182,7 @@ const FeaturesPage: React.FC = () => {
                 <h3>React Integration</h3>
                 <p>Seamless integration with React's ecosystem and existing patterns.</p>
                 <ul>
-                  <li>React 16.8+ hooks support</li>
+                  <li>React 18+ (useSyncExternalStore)</li>
                   <li>Concurrent features ready</li>
                   <li>Strict mode compatible</li>
                 </ul>
@@ -236,11 +236,18 @@ const FeaturesPage: React.FC = () => {
             </thead>
             <tbody>
               <tr>
-                <td>Bundle Size</td>
-                <td>5kb</td>
-                <td>15kb</td>
-                <td>3kb</td>
+                <td>Bundle Size (gzipped)</td>
+                <td>1.6kb</td>
+                <td>~15kb</td>
+                <td>~3kb</td>
                 <td>0kb</td>
+              </tr>
+              <tr>
+                <td>Dependencies</td>
+                <td>✅ Zero</td>
+                <td>⚠️ Several</td>
+                <td>✅ Zero</td>
+                <td>✅ Zero</td>
               </tr>
               <tr>
                 <td>TypeScript</td>
@@ -250,11 +257,11 @@ const FeaturesPage: React.FC = () => {
                 <td>⚠️ Manual</td>
               </tr>
               <tr>
-                <td>DevTools</td>
-                <td>✅ Built-in</td>
-                <td>✅ Built-in</td>
-                <td>⚠️ Plugin</td>
-                <td>❌ None</td>
+                <td>Provider required</td>
+                <td>🟢 No</td>
+                <td>🔴 Yes</td>
+                <td>🟢 No</td>
+                <td>🔴 Yes</td>
               </tr>
               <tr>
                 <td>Learning Curve</td>
